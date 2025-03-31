@@ -1,13 +1,13 @@
 import "./App.css";
+import Todo from "./components/Todo";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
-import Checker from "./components/Checker";
 
 function App() {
   return (
     <>
       <Provider store={store}>
-        <Checker />
+        <Todo />
       </Provider>
     </>
   );

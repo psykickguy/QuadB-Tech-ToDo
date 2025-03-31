@@ -2,7 +2,7 @@ import { createSlice, nanoid } from "@reduxjs/toolkit";
 
 const initialState = {
   todos: JSON.parse(localStorage.getItem("todos")) || [
-    { id: "abc", task: "demo-task", isDone: false, priority: "Medium" },
+    { id: "abc", task: "demo-task", isDone: false },
   ],
 };
 
@@ -13,11 +13,10 @@ export const todoSlice = createSlice({
     addTodo: (state, action) => {
       const newTodo = {
         id: nanoid(),
-        task: action.payload.task,
+        task: action.payload,
         isDone: false,
-        priority: action.payload.priority,
       };
-      if (action.payload.task !== "") {
+      if (action.payload !== "") {
         state.todos.push(newTodo);
       }
       localStorage.setItem("todos", JSON.stringify(state.todos));
