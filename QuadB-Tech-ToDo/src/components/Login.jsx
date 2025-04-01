@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "../features/auth/authSlice";
 import { fetchWeather } from "../features/todo/todoSlice";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -18,19 +20,27 @@ export default function Login() {
     <>
       <h2>Login</h2>
       <form onSubmit={handleLogin}>
-        <input
+        <TextField
+          id="username"
+          label="Username"
+          variant="outlined"
           type="text"
-          placeholder="username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
-        <input
+        &nbsp; &nbsp;
+        <TextField
+          id="city"
+          label="city"
+          variant="outlined"
           type="text"
-          placeholder="city"
           value={city}
           onChange={(e) => setCity(e.target.value)}
         />
-        <button>Login</button>
+        &nbsp; &nbsp;
+        <Button type="submit" variant="contained">
+          Login
+        </Button>
       </form>
     </>
   );

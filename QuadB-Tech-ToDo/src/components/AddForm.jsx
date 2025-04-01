@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addTodo } from "../features/todo/todoSlice";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import MenuItem from "@mui/material/MenuItem";
 
 export default function AddForm() {
   const [task, setTask] = useState("");
@@ -18,23 +22,48 @@ export default function AddForm() {
 
   return (
     <>
-      <form onSubmit={submitHandler}>
-        <input
+      <Box
+        component="form"
+        sx={{ "& > :not(style)": { m: 1, width: "25ch" } }}
+        noValidate
+        autoComplete="off"
+        onSubmit={submitHandler}
+      >
+        <TextField
+          id="task"
+          label="task"
+          variant="outlined"
           type="text"
           value={task}
           onChange={(e) => setTask(e.target.value)}
-        ></input>
-        <select value={category} onChange={(e) => setCategory(e.target.value)}>
-          <option value="indoor">Indoor</option>
-          <option value="outdoor">Outdoor</option>
-        </select>
-        <select value={priority} onChange={(e) => setPriority(e.target.value)}>
-          <option value="High">High</option>
-          <option value="Medium">Medium</option>
-          <option value="Low">Low</option>
-        </select>
-        <button>Add Task</button>
-      </form>
+        />
+        <TextField
+          id="category"
+          select
+          label="Select"
+          helperText="category"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        >
+          <MenuItem value="indoor">Indoor</MenuItem>
+          <MenuItem value="outdoor">Outdoor</MenuItem>
+        </TextField>
+        <TextField
+          id="priority"
+          select
+          label="Select"
+          helperText="priority"
+          value={priority}
+          onChange={(e) => setPriority(e.target.value)}
+        >
+          <MenuItem value="High">High</MenuItem>
+          <MenuItem value="Medium">Medium</MenuItem>
+          <MenuItem value="Low">Low</MenuItem>
+        </TextField>
+        <Button type="submit" variant="contained">
+          Add Task
+        </Button>
+      </Box>
     </>
   );
 }
