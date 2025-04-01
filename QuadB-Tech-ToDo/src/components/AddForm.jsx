@@ -5,15 +5,15 @@ import { addTodo } from "../features/todo/todoSlice";
 export default function AddForm() {
   const [task, setTask] = useState("");
   const [priority, setPriority] = useState("Medium");
+  const [category, setCategory] = useState("indoor");
   const dispatch = useDispatch();
 
   const submitHandler = (evt) => {
     evt.preventDefault();
-    console.log(task);
-    dispatch(addTodo({ task, priority }));
+    dispatch(addTodo({ task, priority, category }));
     setTask("");
     setPriority("Medium");
-    console.log(priority);
+    setCategory("indoor");
   };
 
   return (
@@ -24,6 +24,10 @@ export default function AddForm() {
           value={task}
           onChange={(e) => setTask(e.target.value)}
         ></input>
+        <select value={category} onChange={(e) => setCategory(e.target.value)}>
+          <option value="indoor">Indoor</option>
+          <option value="outdoor">Outdoor</option>
+        </select>
         <select value={priority} onChange={(e) => setPriority(e.target.value)}>
           <option value="High">High</option>
           <option value="Medium">Medium</option>

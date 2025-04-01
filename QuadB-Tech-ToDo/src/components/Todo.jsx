@@ -1,14 +1,21 @@
 import { useSelector, useDispatch } from "react-redux";
 import AddForm from "./AddForm";
+import { fetchWeather } from "../features/todo/todoSlice";
 import { deleteTodo, marksAsDone } from "../features/todo/todoSlice";
 import { logout } from "../features/auth/authSlice";
+import { useEffect } from "react";
 
 export default function Todo() {
   const todos = useSelector((state) => state.todos.todos);
-  console.log(todos);
   const { user } = useSelector((state) => state.auth);
+  const { city } = useSelector((state) => state.auth);
+  const { weather } = useSelector((state) => state.todos);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchWeather(city));
+  }, [dispatch]);
 
   const clickDelete = (id) => {
     console.log("delete", id);
@@ -51,6 +58,13 @@ export default function Todo() {
               style={todo.isDone ? { textDecorationLine: "line-through" } : {}}
             >
               {todo.task}
+            </span>
+            <span
+              style={
+                todo.category === "outdoor" ? { opacity: 1 } : { opacity: 0 }
+              }
+            >
+              {weather ? weather.temp : "Loading..."}
             </span>
             <span style={{ color: priorityColor(todo.priority) }}>
               {todo.priority}
